@@ -19,9 +19,9 @@ Namespace Mailchimp.Example.Journey
                 Dim payload As New JourneyModel()
                 payload.email_address = email
                 Using client As HttpClient = New HttpClient()
-                    client.DefaultRequestHeaders.Authorization = New System.Net.Http.Headers.AuthenticationHeaderValue("Basic", "ebd953cd49472081b02daf1103e09801-us14")
+                    client.DefaultRequestHeaders.Authorization = New System.Net.Http.Headers.AuthenticationHeaderValue("Basic", "{APIKEY}")
                     client.DefaultRequestHeaders.Accept.Add(New System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"))
-                    Using response As HttpResponseMessage = client.PostAsJsonAsync($"https://us14.api.mailchimp.com/3.0/customer-journeys/journeys/{journey_id}/steps/{step_id}/actions/trigger", payload).Result
+                    Using response As HttpResponseMessage = client.PostAsJsonAsync($"https://{SERVER}.api.mailchimp.com/3.0/customer-journeys/journeys/{journey_id}/steps/{step_id}/actions/trigger", payload).Result
                         If response.StatusCode = HttpStatusCode.NoContent Then
                             Console.WriteLine($"Journey updated for the member {payload.email_address }")
                         Else

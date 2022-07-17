@@ -14,10 +14,10 @@ Namespace Mailchimp.Example.Member
         ''' <returns></returns>
         Function PostData(list_id As String, obj As Subscribe) As HttpResponseMessage
             Using client As HttpClient = New HttpClient()
-                client.DefaultRequestHeaders.Authorization = New System.Net.Http.Headers.AuthenticationHeaderValue("Basic", "ebd953cd49472081b02daf1103e09801-us14")
+                client.DefaultRequestHeaders.Authorization = New System.Net.Http.Headers.AuthenticationHeaderValue("Basic", "{APIKEY}")
                 client.DefaultRequestHeaders.Accept.Add(New System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"))
 
-                Using response As HttpResponseMessage = client.PostAsJsonAsync($"https://us14.api.mailchimp.com/3.0/lists/{list_id}/members", obj).Result
+                Using response As HttpResponseMessage = client.PostAsJsonAsync($"https://{SERVER}.api.mailchimp.com/3.0/lists/{list_id}/members", obj).Result
 
                     Return response
                 End Using
@@ -32,9 +32,9 @@ Namespace Mailchimp.Example.Member
         ''' <returns></returns>
         Function AddOrUpdateMember(list_id As String, obj As Subscribe) As HttpResponseMessage
             Using client As HttpClient = New HttpClient()
-                client.DefaultRequestHeaders.Authorization = New System.Net.Http.Headers.AuthenticationHeaderValue("Basic", "ebd953cd49472081b02daf1103e09801-us14")
+                client.DefaultRequestHeaders.Authorization = New System.Net.Http.Headers.AuthenticationHeaderValue("Basic", "{APIKEY}")
                 client.DefaultRequestHeaders.Accept.Add(New System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"))
-                Using response As HttpResponseMessage = client.PutAsJsonAsync($"https://us14.api.mailchimp.com/3.0/lists/{list_id}/members/{obj.email_address}", obj).Result
+                Using response As HttpResponseMessage = client.PutAsJsonAsync($"https://{SERVER}.api.mailchimp.com/3.0/lists/{list_id}/members/{obj.email_address}", obj).Result
                     Return response
                 End Using
             End Using
@@ -49,9 +49,9 @@ Namespace Mailchimp.Example.Member
         Function AddRemoveTag(list_id As String, email As String, tags As Tag) As HttpResponseMessage
             Dim json = JsonConvert.SerializeObject(tags)
             Using client As HttpClient = New HttpClient()
-                client.DefaultRequestHeaders.Authorization = New System.Net.Http.Headers.AuthenticationHeaderValue("Basic", "ebd953cd49472081b02daf1103e09801-us14")
+                client.DefaultRequestHeaders.Authorization = New System.Net.Http.Headers.AuthenticationHeaderValue("Basic", "{APIKEY}")
                 client.DefaultRequestHeaders.Accept.Add(New System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"))
-                Using response As HttpResponseMessage = client.PostAsJsonAsync($"https://us14.api.mailchimp.com/3.0/lists/{list_id}/members/{email}/tags", tags).Result
+                Using response As HttpResponseMessage = client.PostAsJsonAsync($"https://{SERVER}.api.mailchimp.com/3.0/lists/{list_id}/members/{email}/tags", tags).Result
                     Using content As HttpContent = response.Content
                         Dim result As String = content.ReadAsStringAsync().Result
                         If response.StatusCode = 204 Then
@@ -77,9 +77,9 @@ Namespace Mailchimp.Example.Member
             obj.status = "unsubscribed"
 
             Using client As HttpClient = New HttpClient()
-                client.DefaultRequestHeaders.Authorization = New System.Net.Http.Headers.AuthenticationHeaderValue("Basic", "ebd953cd49472081b02daf1103e09801-us14")
+                client.DefaultRequestHeaders.Authorization = New System.Net.Http.Headers.AuthenticationHeaderValue("Basic", "{APIKEY}")
                 client.DefaultRequestHeaders.Accept.Add(New System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"))
-                Using response As HttpResponseMessage = client.PutAsJsonAsync($"https://us14.api.mailchimp.com/3.0/lists/{list_id}/members/{email}", obj).Result
+                Using response As HttpResponseMessage = client.PutAsJsonAsync($"https://{SERVER}.api.mailchimp.com/3.0/lists/{list_id}/members/{email}", obj).Result
                     Using content As HttpContent = response.Content
                         Dim result As String = content.ReadAsStringAsync().Result
                         If response.StatusCode = 200 Then

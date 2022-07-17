@@ -10,9 +10,8 @@ Imports Mailcimp.Example.Mailchimp.Example.Journey
 
 Module Program
     'LIST ID
-    Dim list_id = "eaf9c2dcda"
+    Dim list_id = "{LIST_ID}"
     'BASE URL
-    Dim baseUrl As String = $"https://us14.api.mailchimp.com/3.0/"
     Sub Main(args As String())
         Console.WriteLine("Add Member in Audiance")
 
